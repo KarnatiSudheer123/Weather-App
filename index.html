@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Skycast — Weather App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="bg-orbs"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+
+<!-- ========== NAVBAR ========== -->
+<nav class="navbar">
+  <div class="logo"><div class="logo-icon">⛅</div> Skycast</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#current">Current</a></li>
+    <li><a href="#hourly">Hourly</a></li>
+    <li><a href="#daily">7-Day</a></li>
+    <li><a href="#highlights">Highlights</a></li>
+    <li><a href="#favs">Favorites</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="glass hero" id="hero">
+  <div>
+    <h1>Real-time weather, beautifully delivered.</h1>
+    <p>Search any city worldwide for live conditions, an hourly outlook, a 7-day forecast and rich atmospheric insights.</p>
+    <form class="search-wrap" id="searchForm">
+      <input type="text" id="cityInput" placeholder="Search city e.g. Tokyo, Paris, Lagos…" autocomplete="off" />
+      <button class="btn" type="submit">🔍 Search</button>
+      <button class="btn ghost" type="button" id="geoBtn">📍 My Location</button>
+    </form>
+    <p id="liveClock" style="margin-top:14px;font-size:.9rem;color:var(--muted);"></p>
+  </div>
+  <div class="hero-illu">🌤️</div>
+</section>
+
+<!-- ========== CURRENT ========== -->
+<section id="current">
+  <h2 class="section-title"><span class="dot"></span> Current Weather</h2>
+  <div class="current">
+    <div class="glass main" id="currentMain">
+      <div class="icon" id="cIcon">⛅</div>
+      <div class="city" id="cCity">—</div>
+      <div class="country" id="cCountry"></div>
+      <div class="temp" id="cTemp">--°</div>
+      <div class="cond" id="cCond">—</div>
+      <div class="updated" id="cUpdated"></div>
+      <button class="btn small" id="favBtn" style="margin-top:14px;">⭐ Add to Favorites</button>
+    </div>
+    <div class="glass">
+      <div class="detail-grid" id="detailGrid">
+        <div class="detail"><div class="ico">🌡️</div><div class="lbl">Feels Like</div><div class="val" id="dFeels">--°</div></div>
+        <div class="detail"><div class="ico">💧</div><div class="lbl">Humidity</div><div class="val" id="dHum">--%</div></div>
+        <div class="detail"><div class="ico">🌬️</div><div class="lbl">Wind</div><div class="val" id="dWind">-- km/h</div></div>
+        <div class="detail"><div class="ico">📊</div><div class="lbl">Pressure</div><div class="val" id="dPres">-- hPa</div></div>
+        <div class="detail"><div class="ico">👁️</div><div class="lbl">Visibility</div><div class="val" id="dVis">-- km</div></div>
+        <div class="detail"><div class="ico">🌅</div><div class="lbl">Sunrise</div><div class="val" id="dRise">--:--</div></div>
+        <div class="detail"><div class="ico">🌇</div><div class="lbl">Sunset</div><div class="val" id="dSet">--:--</div></div>
+        <div class="detail"><div class="ico">☁️</div><div class="lbl">Cloud</div><div class="val" id="dCloud">--%</div></div>
+        <div class="detail"><div class="ico">🌧️</div><div class="lbl">Precip</div><div class="val" id="dPrec">-- mm</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== HOURLY ========== -->
+<section id="hourly">
+  <h2 class="section-title"><span class="dot"></span> Next 24 Hours</h2>
+  <div class="glass"><div class="hourly-scroll" id="hourlyScroll"></div></div>
+</section>
+
+<!-- ========== DAILY ========== -->
+<section id="daily">
+  <h2 class="section-title"><span class="dot"></span> 7-Day Forecast</h2>
+  <div class="glass"><div class="daily-grid" id="dailyGrid"></div></div>
+</section>
+
+<!-- ========== HIGHLIGHTS ========== -->
+<section id="highlights">
+  <h2 class="section-title"><span class="dot"></span> Today's Highlights</h2>
+  <div class="high-grid" id="highGrid">
+    <div class="high-card"><div class="lbl">Humidity</div><div class="val" id="hHum">--%</div><div class="bar"><span id="hHumBar" style="width:0%"></span></div></div>
+    <div class="high-card"><div class="lbl">UV Index</div><div class="val" id="hUv">--</div><div class="sub" id="hUvSub">—</div></div>
+    <div class="high-card"><div class="lbl">Wind</div><div class="val" id="hWind">-- km/h</div><div class="sub" id="hWindDir">—</div></div>
+    <div class="high-card"><div class="lbl">Pressure</div><div class="val" id="hPres">-- hPa</div><div class="sub">Atmospheric</div></div>
+    <div class="high-card"><div class="lbl">Visibility</div><div class="val" id="hVis">-- km</div><div class="sub" id="hVisSub">—</div></div>
+    <div class="high-card"><div class="lbl">Cloud Cover</div><div class="val" id="hCloud">--%</div><div class="bar"><span id="hCloudBar" style="width:0%"></span></div></div>
+    <div class="high-card"><div class="lbl">Air Quality (PM2.5)</div><div class="val" id="hAqi">--</div><div class="sub" id="hAqiSub">—</div></div>
+  </div>
+</section>
+
+<!-- ========== LOCATION ========== -->
+<section id="location">
+  <h2 class="section-title"><span class="dot"></span> Location Info</h2>
+  <div class="glass">
+    <div class="loc-grid">
+      <div class="detail"><div class="lbl">Latitude</div><div class="val" id="locLat">—</div></div>
+      <div class="detail"><div class="lbl">Longitude</div><div class="val" id="locLon">—</div></div>
+      <div class="detail"><div class="lbl">Timezone</div><div class="val" id="locTz">—</div></div>
+      <div class="detail"><div class="lbl">Local Time</div><div class="val" id="locTime">—</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== HISTORY ========== -->
+<section id="history">
+  <h2 class="section-title"><span class="dot"></span> Search History</h2>
+  <div class="glass">
+    <div class="chip-row" id="historyRow"><span class="empty">No searches yet.</span></div>
+    <button class="btn ghost small" id="clearHistory" style="margin-top:14px;">🗑️ Clear History</button>
+  </div>
+</section>
+
+<!-- ========== FAVORITES ========== -->
+<section id="favs">
+  <h2 class="section-title"><span class="dot"></span> Favorite Cities</h2>
+  <div class="glass">
+    <div class="chip-row" id="favRow"><span class="empty">No favorites yet. Add cities you love.</span></div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div>© <span id="year"></span> Skycast — Crafted with ❤️</div>
+  <div>Powered by <a href="https://open-meteo.com" target="_blank" rel="noopener" style="color:var(--text);font-weight:600;">Open-Meteo API</a></div>
+  <div class="socials">
+    <a href="https://web.whatsapp.com/" aria-label="Whatsapp">W</a>
+    <a href="https://github.com/KarnatiSudheer123" aria-label="GitHub">G</a>
+    <a href="https://www.instagram.com/karnati_sudheer_15/" aria-label="Instagram">In</a>
+    <a href="https://www.linkedin.com/in/karnati-sudheer-21970437a/" aria-label="LinkedIn">Li</a>
+  </div>
+</footer>
+<button id="backTop" aria-label="Back to top">↑</button>
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
